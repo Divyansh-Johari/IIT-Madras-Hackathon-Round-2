@@ -1,0 +1,23 @@
+import requests
+
+# Define the service details
+service = {
+    "ID": "my-service-1",
+    "Name": "my-service",
+    "Tags": ["tag1", "tag2"],
+    "Address": "192.168.1.100",
+    "Port": 8080,
+    "Check": {
+        "HTTP": "http://192.168.1.100:8080/health",
+        "Interval": "10s"
+    }
+}
+
+# Register the service with Consul
+response = requests.put("http://localhost:8500/v1/agent/service/register", json=service)
+
+# Check if the service was successfully registered
+if response.status_code == 200:
+    print("Service registered with Consul")
+else:
+    print("Error registering service with Consul")
